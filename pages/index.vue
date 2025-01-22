@@ -25,13 +25,13 @@
       </p>
       <ol>
         <li>
-          <strong>Submit your idea.</strong> Share your concept with the community.
+          <strong>Submit your idea.</strong> Share your concept with the community.&nbsp;💡
         </li>
         <li>
-          <strong>Get votes and feedback.</strong> See how your idea resonates with others.
+          <strong>Get votes and feedback.</strong> See how your idea resonates with others.&nbsp;👨🏻‍💻
         </li>
         <li>
-          <strong>Refine and build.</strong> Use the community insights to perfect your idea before you build it.
+          <strong>Refine and build.</strong> Use the community insights to perfect your idea before you build it.&nbsp;🛠️
         </li>
       </ol>
     </page-section>
