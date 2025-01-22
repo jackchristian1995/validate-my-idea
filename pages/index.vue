@@ -49,7 +49,7 @@
       <h3 class="text-xl lg:text-3xl uppercase mb-4 font-bold">Sign up for updates!</h3>
       <netlify-form class="lg:w-2/3" submit-label="Join the community" form-name="sign-up" success-message="Thanks for signing up! We will update you as soon as we have any news about Validate My Idea.">
         <label for="email" class="block mb-8">
-          <p class="sr-only">Email address</p>
+          <p class="sr-only">Enter your email address...</p>
           <input type="email" name="email" id="email" placeholder="Enter your email address..." required />
         </label>
       </netlify-form>
@@ -58,6 +58,9 @@
 </template>
 
 <script setup>
+// Module Imports
+import { ref } from 'vue';
+
 // Component Imports
 import PageSection from "~/components/ui/PageSection.vue";
 import NetlifyForm from '~/components/form/NetlifyForm.vue';

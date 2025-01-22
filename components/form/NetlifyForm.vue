@@ -47,9 +47,9 @@ const sendForm = async () => {
   submitRef.value.disabled = true;
   try {
     // Send form
-    formRef.value.reset();
     const formData = new FormData(formRef.value);
     const formRes = await fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: new URLSearchParams(formData).toString() });
+    formRef.value.reset();
     if (formRes) {
       success.value = true;
     }
