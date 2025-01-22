@@ -3,5 +3,14 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
   pages: true,
+
+  nitro: {
+    prerender: {
+      routes: [
+        '/'
+      ]
+    }
+  },
+
   modules: ['@nuxtjs/tailwindcss', 'shadcn-nuxt']
 })
