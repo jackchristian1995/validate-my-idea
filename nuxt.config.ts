@@ -12,5 +12,14 @@ export default defineNuxtConfig({
     }
   },
 
+  app: {
+    head: {
+      titleTemplate: '%s - Validate My Idea',
+      meta: [
+        { name: 'description', content: 'Validate My Idea is a community forum for Indie Hackers and Entrepreneurs to validate and evolve their startup ideas.' }
+      ]
+    }
+  }
+
   modules: ['@nuxtjs/tailwindcss', 'shadcn-nuxt']
 })

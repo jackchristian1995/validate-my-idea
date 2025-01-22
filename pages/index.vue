@@ -58,10 +58,12 @@
 </template>
 
 <script setup>
-// Module Imports
-import { ref } from 'vue';
-
 // Component Imports
 import PageSection from "~/components/ui/PageSection.vue";
 import NetlifyForm from '~/components/form/NetlifyForm.vue';
+
+// Use Head
+useHead({
+  title: 'Home'
+});
 </script>
