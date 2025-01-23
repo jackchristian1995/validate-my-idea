@@ -11,11 +11,17 @@
     <main class="max-w-screen-2xl px-4 w-full mx-auto">
       <nuxt-page />
     </main>
-    <footer class="py-4 max-w-screen-2xl px-4 w-full mx-auto">
+    <footer class="py-4 max-w-screen-2xl px-4 w-full mx-auto flex flex-row justify-between items-center">
       <p class="mb-0">&copy; Validate My Idea 2025</p>
+      <logout-button />
     </footer>
   </div>
 </template>
+
+<script setup>
+// Component Imports
+import logoutButton from '~/components/auth/logoutButton.vue';
+</script>
 
 <style scoped>
 .wrapper {

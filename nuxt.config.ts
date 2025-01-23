@@ -12,11 +12,22 @@ export default defineNuxtConfig({
     }
   },
 
+  runtimeConfig: {
+    supabaseProjectUrl: '',
+    supabaseApiKey: ''
+  },
+
   app: {
     head: {
       titleTemplate: '%s - Validate My Idea',
       meta: [
         { name: 'description', content: 'Validate My Idea is a community forum for Indie Hackers and Entrepreneurs to validate and evolve their startup ideas.' }
+      ],
+      script: [
+        {
+          async: true,
+          src: 'https://accounts.google.com/gsi/client'
+        }
       ]
     }
   },
