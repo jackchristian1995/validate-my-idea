@@ -92,7 +92,7 @@
 
   /* Element Styles */
   h1 {
-    @apply text-4xl lg:text-8xl font-bold mb-8 lg:w-2/3;
+    @apply text-4xl lg:text-8xl font-bold mb-8;
   }
 
   h2 {
@@ -127,7 +127,8 @@
 
   /* Class Styles */
   .cta {
-    @apply inline-block relative z-10 w-auto px-4 pt-2 pb-1 text-center font-bold text-base lg:text-lg bg-yellow-400 text-gray-900 leading-none shadow-block transition-shadow;
+    @apply inline-block relative z-10 w-auto px-4 py-3 pb-2 text-center font-bold text-base lg:text-lg bg-yellow-400 text-gray-900 leading-none shadow-block transition-shadow;
     @apply hover:shadow-block-hover;
+    line-height: 1;
   }
 }
