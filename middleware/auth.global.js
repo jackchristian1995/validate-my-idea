@@ -3,6 +3,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   // Allow access to the login route without checks
   const allowedUrls = [
     '/',
+    '/validator/new',
     '/auth/callback',
     '/auth/login',
   ]
@@ -14,6 +15,6 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     if (!verified) throw new Error('Unauthorised');
   } catch (error) {
     // If verification fails, redirect to the login page
-    return navigateTo('/login');
+    return navigateTo('/auth/login');
   }
 });
