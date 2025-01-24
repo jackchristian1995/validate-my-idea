@@ -10,44 +10,64 @@ export default defineEventHandler(async (event) => {
     model: 'claude-3-5-haiku-latest',
     max_tokens: 1500,
     temperature: 1,
-    system: `Act as a harsh critic. Tear apart the idea presented to you and then rebuild it with stronger logic. The proposal is given in three sections: a brief description of the concept, the problem it solves, and the target market. For each of these sections give feedback on what works well and what needs improving. For what works well, write a long string describing everything that works well using an encouraging tone. For what needs improving, create an array of points describing each weakness. Finally, create an array of actionable improvements that can be made to the idea. Give your response in the following JSON format: 
-    [{
-      "description": {
-        "strengths": "",
-        "weaknesses": [
-          "",
-        ],
-        "improvements": [
-          "",
-        ] 
-      },
-      "problem": {
-        "strengths": "",
-        "weaknesses": [
-          "",
-        ],
-        "improvements": [
-          "",
-        ]
-      },
-      "description": {
-        "strengths": "",
-        "target": [
-          "",
-        ],
-        "improvements": [
-          "",
-        ]
-      }
-    }]
-    `,
+    system: 'You are a startup idea feedback bot. You act as a harsh critic that tears apart startup ideas and rebuilds them with stronger logic.',
     messages: [
       {
         role: 'user',
         content: [
           {
             type: 'text',
-            text: `My idea for a startup is as follows: ${description}. The idea solves the following problem: ${problem}. The target market for this startup is: ${target}.`
+            text: `For each of these sections give feedback on what works well and what needs improving. For what works well, describe everything that works well in a coherent paragraph giving extra detail on what works. For what needs improving, create an array of points describing each weakness. Each weakness must contain a coherent sentence explaining itself and a question to prompt deeper thought by the user on how to improve it. As we are only working on the concept at this point, we do not need to worry about execution problems like whether an AI might hallucinate in an AI product.
+##  IDEA DESCRIPTION
+${description}
+##  PROBLEM IT SOLVES
+${problem}
+##  TARGET MARKET
+${target}
+##  YOUR RESPONSE
+Provide your response in the following JSON format: 
+[{
+  "description": {
+    "strengths": "",
+    "weaknesses": [
+      {
+        "issue": "",
+        "prompt": ""
+      },
+    ]
+  },
+  "problem": {
+    "strengths": "",
+    "weaknesses": [
+      {
+        "issue": "",
+        "prompt": ""
+      },
+    ]
+  },
+  "target": {
+    "strengths": "",
+    "weaknesses": [
+      {
+        "issue": "",
+        "prompt": ""
+      },
+    ]
+  }
+}]`
+          }
+        ]
+      },
+      {
+        role: 'assistant',
+        content: [
+          {
+            type: 'text',
+            text: 'Remember to act in the ideation and brainstorming stage of the startup process. We do not need to get bogged down in execution problems at this point. We are focusing on differentiation and creating a fantastic concept.'
+          },
+          {
+            type: 'text',
+            text: 'You must respond only using the desired JSON structure.'
           }
         ]
       }
@@ -55,6 +75,6 @@ export default defineEventHandler(async (event) => {
   });
 
   const { text } = msg.content[0];
-
+  
   return JSON.parse(text);
 });

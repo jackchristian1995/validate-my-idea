@@ -5,7 +5,7 @@
       <p>We know you have a good idea. Now let's put it to the test. We want to help your good idea become a great one.</p>
     </page-section>
     <page-section>
-      <form ref="formRef" class="w-full lg:w-2/3 mx-auto border-4 border-yellow-400 shadow-block-lg px-4 py-4" @submit.prevent="submitNewIdea">
+      <form ref="formRef" class="w-full xl:w-3/4 2xl:w-2/3 mx-auto border-4 border-yellow-400 shadow-block-lg px-4 py-4" @submit.prevent="submitNewIdea">
         <fieldset>
           <label for="description">
             <h2 class="mb-4">Describe your idea</h2>
@@ -114,6 +114,12 @@ const submitNewIdea = async () => {
     } else {
       error.value = err.message;
     }
+  } finally {
+    submitRef.value.disabled = false;
+    setTimeout(() => {
+      error.value = undefined;
+      userMessage.value = undefined;
+    }, 3000);
   }
 }
 </script>
