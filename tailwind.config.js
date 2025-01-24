@@ -85,6 +85,7 @@ module.exports = {
       },
       boxShadow: {
         'block': '5px 5px 0 1px #000',
+        'block-lg': '10px 10px 0 2px #000',
         'block-hover': '3px 3px 0 1px #000'
       }
     },

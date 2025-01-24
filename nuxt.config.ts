@@ -16,6 +16,7 @@ export default defineNuxtConfig({
     supabaseProjectUrl: '',
     supabaseApiKey: '',
     recaptchaSecretKey: '',
+    claudeApiKey: '',
     public: {
       recaptchaSiteKey: ''
     }

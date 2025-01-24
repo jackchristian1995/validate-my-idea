@@ -5,12 +5,12 @@
       <p>We know you have a good idea. Now let's put it to the test. We want to help your good idea become a great one.</p>
     </page-section>
     <page-section>
-      <form ref="formRef" class="w-full lg:w-1/2 mx-auto border-2 border-yellow-400 shadow-block px-4 py-8" @submit.prevent="submitNewIdea">
+      <form ref="formRef" class="w-full lg:w-2/3 mx-auto border-4 border-yellow-400 shadow-block-lg px-4 py-4" @submit.prevent="submitNewIdea">
         <fieldset>
           <label for="description">
             <h2 class="mb-4">Describe your idea</h2>
           </label>
-          <p>In less than 300 characters, describe your idea. This is your elevator pitch.</p>
+          <p class="mb-4">In less than 300 characters, describe your idea. This is your elevator pitch.</p>
           <div class="relative">
             <textarea name="description" id="description" v-model="formValues.description" maxlength="300" placeholder="I want to build a..."></textarea>
             <span class="absolute bottom-0 right-0 px-2 py-1 opacity-50">
@@ -20,9 +20,9 @@
         </fieldset>
         <fieldset>
           <label for="description">
-            <h2 class="mb-4">What problem does it solve?</h2>
+            <h2 class="mb-4">What problem does your idea solve?</h2>
           </label>
-          <p>In less than 300 characters, describe the problem your idea solves.</p>
+          <p class="mb-4">In less than 300 characters, describe the problem your idea solves.</p>
           <div class="relative">
             <textarea name="description" id="description" v-model="formValues.problem" placeholder="This will solve..."></textarea>
             <span class="absolute bottom-0 right-0 px-2 py-1 opacity-50">
@@ -32,9 +32,9 @@
         </fieldset>
         <fieldset>
           <label for="description">
-            <h2>What problem does it solve?</h2>
+            <h2>Who does your idea serve?</h2>
           </label>
-          <p>In less than 300 characters, describe who your idea serves.</p>
+          <p class="mb-4">In less than 300 characters, describe who you are solving the problem for.</p>
           <div class="relative">
             <textarea name="description" id="description" v-model="formValues.target" placeholder="My target market is..."></textarea>
             <span class="absolute bottom-0 right-0 px-2 py-1 opacity-50">
@@ -81,9 +81,9 @@ const { executeRecaptcha } = useReCaptcha();
 
 // Idea Submission
 const formValues = reactive({
-  description: null,
-  problem: null,
-  target: null
+  description: 'I want to create an idea validation platorm powered by AI. Anyone with an idea for a startup can come and get feedback on their idea from the AI. The goal of the AI is to turn a good idea into a great one.',
+  problem: 'Many people have ideas for businesses but don\'t how to test them or validate them. I want to provide people with a place to validate and evolve their ideas so they feel empowered to start a great business.',
+  target: 'My target market is anyone with an idea for a business but doesn\'t know where to start or whether their idea is even good enough for a business.'
 });
 
 const submitNewIdea = async () => {
@@ -98,8 +98,10 @@ const submitNewIdea = async () => {
     // Validate the form submission
     const valid = await $fetch('/api/form/validateIdea', { method: 'POST', body: { ...formValues, recaptchaToken: token } });
     if (valid) {
-      // Store submission in local storage
-      localStorage.setItem('new_idea_to_validate', JSON.stringify(formValues));
+      // Send idea submission to AI for feedback
+      const feedback = await $fetch('/api/ideate/getInitialFeedback', { method: 'POST', body: { ...formValues } });
+      // Store feedback in local storage
+      localStorage.setItem('validate_my_idea_feedback', JSON.stringify(feedback));
       // Redirect to response page
       useRouter().push('/validator/feedback');
     }
