@@ -14,8 +14,14 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     supabaseProjectUrl: '',
-    supabaseApiKey: ''
+    supabaseApiKey: '',
+    recaptchaSecretKey: '',
+    public: {
+      recaptchaSiteKey: ''
+    }
   },
+
+  plugins: ['~/plugins/recaptcha.js'],
 
   app: {
     head: {
@@ -32,5 +38,5 @@ export default defineNuxtConfig({
     }
   },
 
-  modules: ['@nuxtjs/tailwindcss', 'shadcn-nuxt']
+  modules: ['@nuxtjs/tailwindcss', 'shadcn-nuxt'],
 })

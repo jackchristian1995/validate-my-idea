@@ -45,7 +45,7 @@
         <p v-show="error" class="py-4 font-bold text-red-600">
           ERROR: {{ error }}
         </p>
-        <button ref="submitRef" class="cta" type="submit">
+        <button ref="submitRef" class="cta disabled:cursor-none disabled:opacity-50" type="submit">
           Submit
         </button>
         <p v-show="userMessage" class="py-8 font-bold flex flex-row justify-start space-x-2 items-center text-green-600 mb-0 leading-none">
@@ -59,16 +59,25 @@
 <script setup>
 // Module Imports
 import { reactive, ref } from 'vue';
+import { useReCaptcha } from 'vue-recaptcha-v3';
 
 // Component Imports
 import PageSection from '~/components/ui/PageSection.vue';
 import { Loader2 } from 'lucide-vue-next';
+
+// Use Head
+useHead({
+  title: 'New Idea Form'
+});
 
 // Form Controls
 const submitRef = ref(null);
 const formRef = ref(null);
 const userMessage = ref(undefined);
 const error = ref(undefined);
+
+// Recatpcha
+const { executeRecaptcha } = useReCaptcha();
 
 // Idea Submission
 const formValues = reactive({
@@ -82,9 +91,12 @@ const submitNewIdea = async () => {
   submitRef.value.disabled = true;
   userMessage.value = 'Please wait while we analyse your idea.';
 
-  try {
+  try {    
+    // Execute reCAPTCHA and get the token
+    const token = await executeRecaptcha('idea_form_submission');    
+    if (!token) throw new Error('Recaptcha failed.');
     // Validate the form submission
-    const valid = await $fetch('/api/form/validateIdea', { method: 'POST', body: { ...formValues } });
+    const valid = await $fetch('/api/form/validateIdea', { method: 'POST', body: { ...formValues, recaptchaToken: token } });
     if (valid) {
       // Store submission in local storage
       localStorage.setItem('new_idea_to_validate', JSON.stringify(formValues));
@@ -92,9 +104,13 @@ const submitNewIdea = async () => {
       useRouter().push('/validator/feedback');
     }
   } catch (err) {
-    error.valid = err.statusMessage;
+    console.error(err);
+    if (err.statusMessage) {
+      error.value = err.statusMessage;
+    } else {
+      error.value = err.message;
+    }
   }
-
 }
 </script>
 
