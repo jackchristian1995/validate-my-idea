@@ -10,11 +10,11 @@
           <label for="description">
             <h2 class="mb-4">Describe your idea</h2>
           </label>
-          <p class="mb-4">In less than 300 characters, describe your idea. This is your elevator pitch.</p>
+          <p class="mb-4">In less than 500 characters, describe your idea. This is your elevator pitch.</p>
           <div class="relative">
-            <textarea name="description" id="description" v-model="formValues.description" maxlength="300" placeholder="I want to build a..."></textarea>
+            <textarea name="description" id="description" v-model="formValues.description" maxlength="500" placeholder="I want to build a..."></textarea>
             <span class="absolute bottom-0 right-0 px-2 py-1 opacity-50">
-              {{ formValues.description?.length }} / 300
+              {{ formValues.description?.length }} / 500
             </span>
           </div>
         </fieldset>
@@ -22,11 +22,11 @@
           <label for="description">
             <h2 class="mb-4">What problem does your idea solve?</h2>
           </label>
-          <p class="mb-4">In less than 300 characters, describe the problem your idea solves.</p>
+          <p class="mb-4">In less than 500 characters, describe the problem your idea solves.</p>
           <div class="relative">
             <textarea name="description" id="description" v-model="formValues.problem" placeholder="This will solve..."></textarea>
             <span class="absolute bottom-0 right-0 px-2 py-1 opacity-50">
-              {{ formValues.problem?.length }} / 300
+              {{ formValues.problem?.length }} / 500
             </span>
           </div>
         </fieldset>
@@ -34,11 +34,11 @@
           <label for="description">
             <h2>Who does your idea serve?</h2>
           </label>
-          <p class="mb-4">In less than 300 characters, describe who you are solving the problem for.</p>
+          <p class="mb-4">In less than 500 characters, describe who you are solving the problem for.</p>
           <div class="relative">
             <textarea name="description" id="description" v-model="formValues.target" placeholder="My target market is..."></textarea>
             <span class="absolute bottom-0 right-0 px-2 py-1 opacity-50">
-              {{ formValues.target?.length }} / 300
+              {{ formValues.target?.length }} / 500
             </span>
           </div>
         </fieldset>
@@ -100,6 +100,8 @@ const submitNewIdea = async () => {
     if (valid) {
       // Send idea submission to AI for feedback
       const feedback = await $fetch('/api/ideate/getInitialFeedback', { method: 'POST', body: { ...formValues } });
+      // Store submission in local storage
+      localStorage.setItem('validate_my_idea_submission', JSON.stringify({ ...formValues }));
       // Store feedback in local storage
       localStorage.setItem('validate_my_idea_feedback', JSON.stringify(feedback));
       // Redirect to response page

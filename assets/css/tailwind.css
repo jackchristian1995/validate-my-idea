@@ -100,7 +100,7 @@
   }
 
   h3 {
-    @apply mb-8;
+    @apply text-lg lg:text-2xl font-bold mb-8;
   }
 
   p {
@@ -110,6 +110,11 @@
   ol,
   ol > li {
     @apply list-decimal list-inside text-base lg:text-lg;
+  }
+
+  ul,
+  ul > li {
+    @apply list-disc list-inside text-base lg:text-lg;
   }
 
   li {
