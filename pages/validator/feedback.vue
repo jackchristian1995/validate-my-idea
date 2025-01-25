@@ -13,11 +13,11 @@
       </p>
     </page-section>
     <page-section>
-      <form class="w-full xl:w-3/4 2xl:w-2/3 mx-auto border-4 border-yellow-400 shadow-block-lg px-8 py-16">
+      <form class="w-full xl:w-3/4 2xl:w-2/3 mx-auto border-4 border-yellow-400 shadow-block-lg px-8 py-16" @submit.prevent="getFeedback">
         <fieldset v-for="section of Object.keys(submission)" :key="section" class="border-b-2 border-yellow-400 pb-16 mb-16 mt-0">
           <label :for="section">
             <h2 class="mb-0">
-              {{ section }}
+              {{ section }} - <span :class="{ 'text-green-500': feedback[section].score === 5 }">{{ feedback[section].score }}&nbsp;/&nbsp;5</span>
             </h2>
           </label>
           <div class="py-4">
@@ -25,22 +25,22 @@
               <h3 class="mb-2">What works well in your concept</h3>
               <p>{{ feedback[section].strengths }}</p>
             </div>
-            <div class="my-4">
+            <div v-if="feedback[section].weaknesses.length" class="my-4">
               <h3 class="mb-2">How we could strengthen your concept</h3>
-              <ul>
-                <li v-for="weakness, index of feedback[section].weaknesses" :key="`weakness_${index}`">
-                  {{ weakness.issue }}. {{ weakness.prompt }}
-                </li>
-              </ul>
+              <p>
+                {{ feedback[section].weaknesses }}
+              </p>
             </div>
           </div>
           <div class="relative mt-8">
-            <textarea v-model="submission[section]" :id="section" :name="section" maxlength="500" placeholder="I want to build a..."></textarea>
+            <textarea v-model="submission[section]" :id="section" :name="section" maxlength="500" :disabled="feedback[section].score === 5" placeholder="I want to build a..."></textarea>
             <span class="absolute bottom-0 right-0 px-2 py-1 opacity-50">
               {{ submission[section]?.length }} / 500
             </span>
           </div>
         </fieldset>
+        <button v-if="!ideaPerfected" class="cta">Get feedback</button>
+        <p class="font-bold text-xl lg:text-2xl" v-else>Your idea is perfect! Let's move on to the next stage.</p>
       </form>
     </page-section>
   </div>
@@ -64,4 +64,18 @@ onMounted(() => {
   const feedbackStorage = localStorage.getItem('validate_my_idea_feedback');
   if (feedbackStorage) feedback.value = JSON.parse(feedbackStorage)[0];
 });
+
+// Get Additional Feedback
+const getFeedback = async () => {
+  // Store new submission
+  localStorage.setItem('validate_my_idea_submission', JSON.stringify(submission.value));
+  // Send submission for feedback
+  const aiFeedback = await $fetch('/api/ideate/getAdditionalFeedback', { method: 'POST', body: { feedback: feedback.value, concept: submission.value } });
+  // Store new feedback
+  localStorage.setItem('validate_my_idea_feedback', JSON.stringify(aiFeedback));
+  feedback.value = aiFeedback[0];
+}
+
+// Perfected the idea
+const ideaPerfected = computed(() => feedback.value.description.score === 5 && feedback.value.problem.score === 5 && feedback.value.target.score === 5)
 </script>

@@ -81,9 +81,9 @@ const { executeRecaptcha } = useReCaptcha();
 
 // Idea Submission
 const formValues = reactive({
-  description: 'I want to create an idea validation platorm powered by AI. Anyone with an idea for a startup can come and get feedback on their idea from the AI. The goal of the AI is to turn a good idea into a great one.',
-  problem: 'Many people have ideas for businesses but don\'t how to test them or validate them. I want to provide people with a place to validate and evolve their ideas so they feel empowered to start a great business.',
-  target: 'My target market is anyone with an idea for a business but doesn\'t know where to start or whether their idea is even good enough for a business.'
+  description: "I want to create an AI-powered startup concept validation platform. A place for new entrepreneurs to validate their ideas and evolve them into a strong business plan. The AI bases its feedback on the clarity, feasibility, and market differentiation of the user's concept. It provides constructive feedback to gradually guide the user to a much stronger plan for their startup to give them the confidence and momentum to start it.",
+  problem: "Many people have business ideas but don't know how to test them or validate them. Without proper idea validation, people risk investing their time and money into a venture doomed to fail. I want to provide a place for people to test and evolve their ideas so that they can feel more confident that they have a strong plan for success and have thought through their idea to the point where it can't get any better.",
+  target: "My target market is people like me. Aspiring entrepreneurs who lack the experience and community required to get feedback on their ideas. My platform aims to provide a sounding board where they propose their ideas and get valuable, constructive feedback to help them build a well-thought-out plan for success."
 });
 
 const submitNewIdea = async () => {

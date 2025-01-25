@@ -136,6 +136,7 @@
 
   textarea {
     @apply block border-2 border-foreground resize-none rounded-none text-base lg:text-lg px-2 pt-1 pb-3 w-full h-44 relative;
+    @apply disabled:border-green-500 disabled:text-foreground/50
   }
   
   /* Class Styles */
