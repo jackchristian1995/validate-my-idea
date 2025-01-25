@@ -53,6 +53,11 @@ import { onMounted, ref } from 'vue';
 // Component Imports
 import PageSection from '~/components/ui/PageSection.vue';
 
+// Use Head
+useHead({
+  title: 'Feedback'
+});
+
 // Feedback Data
 const feedback = ref({});;
 const submission = ref({})
@@ -77,5 +82,5 @@ const getFeedback = async () => {
 }
 
 // Perfected the idea
-const ideaPerfected = computed(() => feedback.value.description.score === 5 && feedback.value.problem.score === 5 && feedback.value.target.score === 5)
+const ideaPerfected = computed(() => feedback.value?.description?.score === 5 && feedback.value?.problem?.score === 5 && feedback.value?.target?.score === 5)
 </script>
