@@ -13,6 +13,15 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     // Call the server to verify if the user is authenticated
     const verified = await $fetch('/api/auth/verify', { method: 'GET' });
     if (!verified) throw new Error('Unauthorised');
+    if (verified.is_anonymous) {
+      const urlBlacklist = [
+        '/account' 
+      ]
+      if (urlBlacklist.includes(to.path)) return navigateTo('/login');
+    }
+    if (to.path.includes('/feedback/')) {
+      if (!to.path.includes(verified.id)) return navigateTo('/login')
+    }
   } catch (error) {
     // If verification fails, redirect to the login page
     return navigateTo('/auth/login');

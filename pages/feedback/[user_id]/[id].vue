@@ -71,7 +71,7 @@ const concept = reactive({
 
 onMounted(async () => {
   try {
-    const id = useRoute().path.replace('/feedback/', '');
+    const id = useRoute().path.split('/')[2];
     // Get idea from DB
     const conceptRes = await $fetch('/api/user/getConcept', { method: 'POST', body: { id } });
     concept.product = conceptRes.product;
@@ -96,13 +96,13 @@ onMounted(async () => {
 
 // Get Additional Feedback
 const getFeedback = async () => {
-  const id = useRoute().path.replace('/feedback/', '');
+  const id = useRoute().path.split('/')[2];
   // Store new concept in DB
   await $fetch('/api/user/updateConcept', { method: 'POST', body: { id, concept: { ...concept } } });
   // Send concept for feedback
   const aiFeedback = await $fetch('/api/ideate/getAdditionalFeedback', { method: 'POST', body: { feedback, concept } });
   // Store feedback in DB
-  const feedbackRes = await $fetch('/api/user/updateFeedback', { method: 'POST', body: { id, feedback: aiFeedback[0] } });
+  await $fetch('/api/user/updateFeedback', { method: 'POST', body: { id, feedback: aiFeedback[0] } });
   // Add feedback to view
   feedback.product = aiFeedback[0].product;
   feedback.problem = aiFeedback[0].problem;

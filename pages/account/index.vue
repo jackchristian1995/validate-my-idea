@@ -1,6 +1,6 @@
 <template>
   <div class="w-full">
-    <page-section v-if="user">
+    <page-section v-if="userMeta">
       <h1>
         {{ userMeta.full_name }}
       </h1>
@@ -32,22 +32,14 @@ const error = ref(null);
 // Get user info
 const user = ref(null);
 const userMeta = computed(() => user.value?.user_metadata);
+const concepts = ref(undefined);
 onMounted(async () => {
   try {
     user.value = await $fetch('/api/auth/getUser');
+    concepts.value = await $fetch('/api/user/getConcepts');
   } catch (err) {
     console.error(err);
     error.value = err.statusMessage
-  }
-});
-
-// Get Concepts
-const concepts = ref([])
-onMounted(async () => {
-  try {
-    concepts.value = await $fetch('/api/user/getConcepts');
-  } catch (err) {
-    error.value = err.statusMessage;
   }
 });
 </script>

@@ -5,7 +5,7 @@
         <nuxt-link to="/" class="leading-none">
           <img class="h-8 w-auto" src="/logos/validate-my-idea-logo-transparent.png" alt="Validate My Idea logo" />
         </nuxt-link>
-        <nuxt-link to="/validator/new" class="cta">Validate your idea</nuxt-link>
+        <nuxt-link v-if="useRoute().path === '/'" to="/validator/new" class="cta">Validate your idea</nuxt-link>
       </nav>
     </header>
     <main class="max-w-screen-2xl px-4 w-full mx-auto">

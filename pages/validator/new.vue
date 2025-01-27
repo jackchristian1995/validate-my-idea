@@ -98,11 +98,11 @@ const saveIdea = async () => {
     const valid = await $fetch('/api/form/validateIdea', { method: 'POST', body: { ...formValues } });
     if (valid) {
       // Create anonymous user
-      await $fetch('/api/auth/signInAsGuest', { method: 'POST', body: { token: captchaToken.value } });
+      const user = await $fetch('/api/auth/signInAsGuest', { method: 'POST', body: { token: captchaToken.value } });
       // Store Concept in DB
       const storedConcept = await $fetch('/api/user/postConcept', { method: 'POST', body: { concept: formValues } });
       
-      useRouter().push(`/feedback/${storedConcept[0].id}`);
+      useRouter().push(`/feedback/${user.id}/${storedConcept[0].id}`);
     }
   } catch (err) {
     console.error(err);
