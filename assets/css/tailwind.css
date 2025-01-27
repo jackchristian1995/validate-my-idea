@@ -126,6 +126,11 @@
     white-space: break-spaces;
   }
 
+  a {
+    @apply border-b-2 border-yellow-400 font-bold transition-all;
+    @apply hover:text-yellow-400;
+  }
+
   fieldset {
     @apply my-16;
   }

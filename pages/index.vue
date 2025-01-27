@@ -68,6 +68,63 @@
       </ol>
     </page-section>
     <page-section>
+      <h2>Founder's Note</h2>
+      <p>
+        I love building things but often dive straight into building without considering how to turn that product into a business. I built <nuxt-link to="/">Validate My Idea</nuxt-link> as a way for me and other Indie Hackers to sense check our ideas, validate and evolve them into more well-rounded business concepts.
+      </p>
+      <p>
+        The power of Indie Hackers comes from their speed to market. Where they see an opening, they can get to it before anyone else. As an independent maker, anything that can help you get to a product and business faster gives you a greater opportunity to make money and serve your audience. An AI-powered validation system enables that speed and promises to be faster than any human-powered forum ever could be.
+      </p>
+      <p>
+        I hope that <nuxt-link to="/">Validate My Idea</nuxt-link> will be a useful tool for all who use it. I hope it empowers people to take a chance on their "million-dollar idea" and build brilliant products and businesses for the world to use.
+      </p>
+      <p>
+        <strong class="inline-block px-2">Keep on building!</strong>
+      </p>
+      <p class="italic text-xl"><a href="https://jackchristian.com.au" target="_blank">Jack Christian</a></p>
+    </page-section>
+    <page-section>
+      <h2>Frequently Asked Questions</h2>
+      <Accordion default-value="is-good" type="single">
+        <AccordionItem value="is-good">
+          <AccordionTrigger class="">
+            <span>
+              Is the <strong>AI feedback</strong> any good?
+            </span>
+          </AccordionTrigger>
+          <AccordionContent>
+            <p>
+              We work hard to ensure that our AI does not just give generic advice back to you. We understand that <strong>you are the driving force behind your idea</strong>. With that in mind, our AI only asks you questions to prompt you to think about things from a new perspective to help you grow your vision your way.
+            </p>
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="why-ai">
+          <AccordionTrigger>
+            <span>
+              Why use <strong>AI-validation instead of human forums</strong> and online communities?
+            </span>
+          </AccordionTrigger>
+          <AccordionContent>
+            <p>
+              Human forums and online communities offer great feedback from real people. There is no denying that. What they lack is immediacy. Often posts to communities go ignored or the feedback is just too slow. AI platforms like Validate My Idea offer immediate and reliable feedback to help evolve your idea straightaway.
+            </p>
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="how-works">
+          <AccordionTrigger>
+            <span>
+              How do <strong>feedback credits</strong> work?
+            </span>
+          </AccordionTrigger>
+          <AccordionContent>
+            <p>
+              Each new concept proposal comes with 1 free feedback credit. This credit pays for one interaction with our feedback AI. If you feel the feedback is worth it and you can see the potential of your idea starting to expand, you can purchase more credits with a full user account. 
+            </p>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+    </page-section>
+    <page-section>
       <h2 class="text-4xl lg:text-8xl normal-case font-bold mb-8">Launching soon!</h2>
       <h3 class="text-xl lg:text-3xl uppercase mb-4 font-bold">Sign up for updates!</h3>
       <netlify-form class="lg:w-2/3" submit-label="Sign up" form-name="sign-up" success-message="Thanks for signing up! We will update you as soon as we have any news about Validate My Idea.">
@@ -84,6 +141,7 @@
 // Component Imports
 import PageSection from "~/components/ui/PageSection.vue";
 import NetlifyForm from '~/components/form/NetlifyForm.vue';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '~/components/ui/accordion';
 
 // Use Head
 useHead({
