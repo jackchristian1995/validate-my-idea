@@ -11,11 +11,10 @@ onMounted(async () => {
   if (hash.includes('refresh_token')) {
     window.history.pushState({}, null, path);
     try {
-      const user = await $fetch('/api/auth/getSessionFromHash', { method: 'POST', body: { hash } });
-      console.log(session);
-      useRouter.push('/hidden');
+      await $fetch('/api/auth/getSessionFromHash', { method: 'POST', body: { hash } });
+      useRouter().push('/account');
     } catch (err) {
-      console.error(err.statusMessage);
+      console.error(err);
     }
   }
 

@@ -4,8 +4,8 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   const allowedUrls = [
     '/',
     '/validator/new',
-    '/auth/callback',
-    '/auth/login',
+    '/login/callback',
+    '/login',
   ]
   if (allowedUrls.includes(to.path)) return;
 

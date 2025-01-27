@@ -4,7 +4,7 @@ export default defineEventHandler(async (event) => {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: 'http://localhost:3000/auth/callback'
+      redirectTo: 'http://localhost:3000/login/callback'
     }
   });
 

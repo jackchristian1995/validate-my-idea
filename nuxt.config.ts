@@ -22,8 +22,6 @@ export default defineNuxtConfig({
     }
   },
 
-  plugins: ['~/plugins/recaptcha.js'],
-
   app: {
     head: {
       titleTemplate: '%s - Validate My Idea',
