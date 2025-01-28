@@ -13,6 +13,13 @@ export default defineEventHandler(async (event) => {
   if (error) throw createError({ statusCode: 401, statusMessage: error.message });
 
   const { session: newSession, user } = data;
+  const { credits, was_anon, logged_in } = user.user_metadata;
+
+  if (was_anon && !logged_in) {
+    // Set max credit balance to 2 depending on whether feedback credit has already been used
+    // Also update 'logged_in' to true to avoid adding additional free credits on every login
+    const { data, error: updateError } = await supabase.auth.updateUser({ data: { credits: credits === 0 ? 1 : 2, was_anon: true, logged_in: true } });
+  }
 
   setCookie(event, 'auth_token', newSession.access_token, {
     httpOnly: true,

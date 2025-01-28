@@ -50,18 +50,23 @@
 
 <script setup>
 // Module Imports
-import { onMounted, reactive } from 'vue';
+import { onMounted, reactive, computed } from 'vue';
 
 // Component Imports
 import PageSection from '~/components/ui/PageSection.vue';
 
 // Store Imports
 import { useConceptStore } from '~/stores/conceptStore';
+import { useAuthStore } from '~/stores/authStore';
 
 // Use Head
 useHead({
   title: 'Feedback'
 });
+
+// User Date
+const { getUser, setUser } = useAuthStore();
+const userMeta = computed(() => getUser().user_metadata);
 
 // Concept Data
 const concept = reactive({
@@ -80,27 +85,24 @@ const feedback = reactive({
 
 onMounted(async () => {
   try {
+    let conceptRes;
     const id = useRoute().path.split('/')[3];
     // Check if concept available in store
-    const conceptInMem = getConceptById(id);
-    if (!conceptInMem) {
+    conceptRes = getConceptById(id);
+    if (!conceptRes) {
       // Get idea from DB
-      const conceptRes = await $fetch('/api/user/getConcept', { method: 'POST', body: { id } });
-      concept.product = conceptRes.product;
-      concept.problem = conceptRes.problem;
-      concept.market = conceptRes.market;
-    } else {
-      concept.product = conceptInMem.product;
-      concept.problem = conceptInMem.problem;
-      concept.market = conceptInMem.market;
+      conceptRes = await $fetch('/api/user/getConcept', { method: 'POST', body: { id } });
     }
+    concept.product = conceptRes.product;
+    concept.problem = conceptRes.problem;
+    concept.market = conceptRes.market;
     // Check if feedback exists
     let feedbackRes = await $fetch('/api/user/getFeedback', { method: 'POST', body: { id } });
     if (!feedbackRes) {
       // If feedback does not already exist then generate new feedback
       feedbackRes = await $fetch('/api/ideate/getInitialFeedback', { method: 'POST', body: { ...conceptRes } });
       // Store feedback in DB
-      await $fetch('/api/user/postFeedback', { method: 'POST', body: { id, feedback: feedbackRes[0] } });
+      await $fetch('/api/user/postFeedback', { method: 'POST', body: { id, feedback: feedbackRes } });
     }
     // Add feedback to view
     feedback.product = feedbackRes.product;
@@ -120,6 +122,9 @@ const getFeedback = async () => {
   const aiFeedback = await $fetch('/api/ideate/getAdditionalFeedback', { method: 'POST', body: { feedback, concept } });
   // Store feedback in DB
   await $fetch('/api/user/updateFeedback', { method: 'POST', body: { id, feedback: aiFeedback[0] } });
+  // Update credit balance
+  const credits = await $fetch('/api/user/useCredit');
+  setUser(credits);
   // Add feedback to view
   feedback.product = aiFeedback[0].product;
   feedback.problem = aiFeedback[0].problem;

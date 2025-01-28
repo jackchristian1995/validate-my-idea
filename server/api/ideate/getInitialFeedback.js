@@ -67,5 +67,5 @@ Provide your response in the following JSON format:
 
   const { text } = msg.content[0];
   
-  return JSON.parse(text);
+  return JSON.parse(text)[0];
 });

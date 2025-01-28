@@ -5,6 +5,7 @@
         {{ userMeta.full_name }}
       </h1>
       <p>{{ userMeta.email }}</p>
+      <p>Credit Balance: {{ userMeta.credits }}</p>
     </page-section>
     <page-section v-if="user">
       <h2>Concepts</h2>
