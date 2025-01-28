@@ -39,7 +39,10 @@
             </span>
           </div>
         </fieldset>
-        <button v-if="!ideaPerfected && feedback" class="cta">Get feedback</button>
+        <div class="block lg:flex lg:flex-row lg:space-x-8 lg:justify-start lg:items-center">
+          <button v-if="!ideaPerfected && feedback" class="cta">Get feedback</button>
+          <button clas="cta bg-yellow-300">Save feedback for later</button>
+        </div>
       </form>
     </page-section>
   </div>
@@ -52,10 +55,21 @@ import { onMounted, reactive } from 'vue';
 // Component Imports
 import PageSection from '~/components/ui/PageSection.vue';
 
+// Store Imports
+import { useConceptStore } from '~/stores/conceptStore';
+
 // Use Head
 useHead({
   title: 'Feedback'
 });
+
+// Concept Data
+const concept = reactive({
+  product: null,
+  problem: null,
+  market: null
+});
+const { getConceptById } = useConceptStore();
 
 // Feedback Data
 const feedback = reactive({
@@ -63,20 +77,23 @@ const feedback = reactive({
   problem: null,
   market: null
 });
-const concept = reactive({
-  product: null,
-  problem: null,
-  market: null
-});
 
 onMounted(async () => {
   try {
-    const id = useRoute().path.split('/')[2];
-    // Get idea from DB
-    const conceptRes = await $fetch('/api/user/getConcept', { method: 'POST', body: { id } });
-    concept.product = conceptRes.product;
-    concept.problem = conceptRes.problem;
-    concept.market = conceptRes.market;
+    const id = useRoute().path.split('/')[3];
+    // Check if concept available in store
+    const conceptInMem = getConceptById(id);
+    if (!conceptInMem) {
+      // Get idea from DB
+      const conceptRes = await $fetch('/api/user/getConcept', { method: 'POST', body: { id } });
+      concept.product = conceptRes.product;
+      concept.problem = conceptRes.problem;
+      concept.market = conceptRes.market;
+    } else {
+      concept.product = conceptInMem.product;
+      concept.problem = conceptInMem.problem;
+      concept.market = conceptInMem.market;
+    }
     // Check if feedback exists
     let feedbackRes = await $fetch('/api/user/getFeedback', { method: 'POST', body: { id } });
     if (!feedbackRes) {

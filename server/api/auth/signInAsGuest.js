@@ -4,7 +4,7 @@ export default defineEventHandler(async (event) => {
   const { token } = await readBody(event);
   
   const { data: { session, user }, error } = await supabase.auth.signInAnonymously({ options: { captchaToken: token } });
-  if (error) throw createError({ statusCode: 400, statusCode: error.message });
+  if (error) throw createError({ statusCode: 400, statusMessage: error.message });
   
 
   setCookie(event, 'auth_token', session.access_token, {

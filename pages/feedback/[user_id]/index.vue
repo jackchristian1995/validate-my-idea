@@ -9,11 +9,12 @@
     <page-section v-if="user">
       <h2>Concepts</h2>
       <ul v-if="concepts.length">
-        <li v-for="concept of concepts" :key="concept.id"></li>
+        <li v-for="concept of concepts" :key="concept.id">
+        </li>
       </ul>
       <div v-else>
         <p>No concepts stored just yet.</p>
-        <nuxt-link class="cta" to="/validator/new">Validate your first concept</nuxt-link>
+        <nuxt-link class="cta" to="/validator">Validate your first concept</nuxt-link>
       </div>
     </page-section>
   </div>

@@ -12,7 +12,7 @@ onMounted(async () => {
     window.history.pushState({}, null, path);
     try {
       await $fetch('/api/auth/getSessionFromHash', { method: 'POST', body: { hash } });
-      useRouter().push('/account');
+      useRouter().push('/feedback');
     } catch (err) {
       console.error(err);
     }

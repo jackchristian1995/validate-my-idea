@@ -8,7 +8,7 @@
         The fastest way to refine your idea and take it from concept to reality. No fluff. No wasted time.
       </p>
       <div class="flex flex-col lg:flex-row lg:space-x-8 space-y-8 lg:space-y-0 justify-start items-start">
-        <nuxt-link to="/validator/new" class="cta">Validate your idea</nuxt-link>
+        <nuxt-link to="/validator" class="cta">Validate your idea</nuxt-link>
         <a href="https://www.producthunt.com/products/validate-my-idea-2" target="_blank" class="cta bg-yellow-300">
           Follow us on Product Hunt
         </a>

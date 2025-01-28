@@ -113,41 +113,4 @@ const saveIdea = async () => {
     }
   }
 }
-
-const continueAsGuest = async () => {
-  try {
-    useRouter().push('/validator/feedback');
-  } catch (err) {
-    error.value = err.statusMessage
-    console.error(err.message);
-  }
-}
-
-const submitNewIdea = async () => {
-  try {
-      // Create anonymous user
-      // Send idea concept to AI for feedback
-      const feedback = await $fetch('/api/ideate/getInitialFeedback', { method: 'POST', body: { ...formValues } });
-      // Store feedback in local storage
-      localStorage.setItem('validate_my_idea_feedback', JSON.stringify(feedback));
-      // Redirect to response page
-      useRouter().push('/validator/feedback');
-  } catch (err) {
-    console.error(err);
-    if (err.statusMessage) {
-      error.value = err.statusMessage;
-    } else {
-      error.value = err.message;
-    }
-  } finally {
-    submitRef.value.disabled = false;
-    setTimeout(() => {
-      error.value = undefined;
-      userMessage.value = undefined;
-    }, 3000);
-  }
-}
 </script>
-
-<style scoped>
-</style>
