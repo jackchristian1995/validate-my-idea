@@ -59,17 +59,24 @@
 
 <script setup>
 // Module Imports
-import { reactive, ref } from 'vue';
+import { reactive, ref, computed } from 'vue';
 import VueHcaptcha from '@hcaptcha/vue3-hcaptcha';
 
 // Component Imports
 import PageSection from '~/components/ui/PageSection.vue';
 import { Loader2 } from 'lucide-vue-next';
 
+// Store Imports
+import { useAuthStore } from '~/stores/authStore';
+
 // Use Head
 useHead({
   title: 'New Idea Form'
 });
+
+// User data
+const { getUser, setUser } = useAuthStore();
+const user = computed(() => getUser());
 
 // Form Controls
 const submitRef = ref(null);
@@ -97,8 +104,12 @@ const saveIdea = async () => {
     // Validate the form concept
     const valid = await $fetch('/api/form/validateIdea', { method: 'POST', body: { ...formValues } });
     if (valid) {
-      // Create anonymous user
-      const user = await $fetch('/api/auth/signInAsGuest', { method: 'POST', body: { token: captchaToken.value } });
+      if (!user.value) {
+        // Create anonymous user
+        const newUser = await $fetch('/api/auth/signInAsGuest', { method: 'POST', body: { token: captchaToken.value } });
+        setUser(newUser);
+      }
+      if (user.user_metadata.credits < 1) throw new Error('You do not have enough feedback credits to submit this proposal.');
       // Store Concept in DB
       const storedConcept = await $fetch('/api/user/postConcept', { method: 'POST', body: { concept: formValues } });
       
