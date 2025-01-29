@@ -1,7 +1,7 @@
 <template>
   <div class="border-2 border-yellow-400 py-1 px-2 leading-none flex flex-row items-center justify-center space-x-4">
     <span class="leading-none">{{ creditBalance }}&nbsp;Credits</span>
-    <Dialog>
+    <Dialog v-if="isAuthenticated">
       <DialogTrigger class="leading-none bg-yellow-400 h-6 w-6 font-bold hover:text-yellow-400 hover:bg-gray-900 transition-all">+</DialogTrigger>
       <DialogContent class="rounded-none sm:rounded-none border-4 border-yellow-400 w-auto max-w-none items-center">
         <DialogHeader>
@@ -38,9 +38,10 @@ import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogFooter, Dialo
 // Store Imports
 import { useAuthStore } from '~/stores/authStore';
 
-// User's Credit Balance
-const { getCreditBalance } = useAuthStore();
+// User Type and Credit Balance
+const { getCreditBalance, getUser } = useAuthStore();
 const creditBalance = computed(() => getCreditBalance());
+const isAuthenticated = computed(() => !getUser().is_anonymous);
 
 // Purchasing Credits
 const selectedProductId = ref('price_1QmQavG3ttZtb95uNmsvI1rT');
