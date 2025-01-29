@@ -5,6 +5,7 @@
         <nuxt-link to="/" class="leading-none mr-auto border-none">
           <img class="h-8 w-auto" src="/logos/validate-my-idea-logo-transparent.png" alt="Validate My Idea logo" />
         </nuxt-link>
+        <credit-balance v-if="user" />
         <nuxt-link v-if="user && recentConcept" :to="`/feedback/${user.id}/${recentConcept.id}`" class="cta">Review your feedback</nuxt-link>
         <nuxt-link v-if="useRoute().path === '/'" to="/validator" class="cta">Validate your idea</nuxt-link>
         <button v-if="!user || isAnon" class="cta bg-yellow-300" @click.prevent="signInWithGoogle">{{ user ? 'Create Account' : 'Sign In' }}</button>
@@ -25,6 +26,7 @@
 import { computed } from 'vue';
 
 // Component Imports
+import CreditBalance from '~/components/nav/CreditBalance.vue';
 import logoutButton from '~/components/auth/logoutButton.vue';
 
 // Store Imports

@@ -15,11 +15,11 @@ export default defineNuxtConfig({
   runtimeConfig: {
     supabaseProjectUrl: '',
     supabaseApiKey: '',
-    recaptchaSecretKey: '',
+    supabaseServiceRoleKey: '',
     claudeApiKey: '',
-    public: {
-      recaptchaSiteKey: ''
-    }
+    stripePublishableKey: '',
+    stripeSecretKey: '',
+    stripeCreditWebhookSecret: ''
   },
 
   app: {
