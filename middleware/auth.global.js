@@ -8,6 +8,8 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     '/validator',
     '/login/callback',
     '/login',
+    '/privacy-policy',
+    '/terms-and-conditions'
   ]
 
   try {
@@ -17,15 +19,10 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     
     const authStore = useAuthStore(useNuxtApp().$pinia);
     authStore.setUser(verified);
-    if (verified.is_anonymous) {
-      const urlBlacklist = [
-        '/account' 
-      ]
-      if (urlBlacklist.includes(to.path)) return navigateTo('/login');
-    }
     if (to.path.includes('/feedback/')) {
       if (!to.path.includes(verified.id)) return navigateTo('/login')
     }
+
   } catch (error) {
     // If verification fails, redirect to the login page unless url is whitelisted
     if (allowedUrls.includes(to.path)) return;

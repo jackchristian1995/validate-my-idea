@@ -16,8 +16,12 @@
       </nuxt-layout>
     </main>
     <footer class="max-w-screen-2xl px-4 w-full mx-auto">
-      <div class="w-full py-4 flex flex-row justify-between items-center border-t-2 border-yellow-400">
+      <div class="w-full py-4 flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0 border-t-2 border-yellow-400">
         <p class="mb-0">&copy; Validate My Idea 2025</p>
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-end space-y-4 md:space-y-0 md:space-x-8">
+          <nuxt-link to="/privacy-policy">Privacy&nbsp;Policy</nuxt-link>
+          <nuxt-link to="/terms-and-conditions">Terms&nbsp;and&nbsp;Conditions</nuxt-link>
+        </div>
       </div>
     </footer>
   </div>

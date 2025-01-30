@@ -124,7 +124,7 @@
         </AccordionItem>
       </Accordion>
     </page-section>
-    <page-section>
+    <page-section class="border-b-0">
       <h2 class="text-4xl lg:text-8xl normal-case font-bold mb-8">Launching soon!</h2>
       <h3 class="text-xl lg:text-3xl uppercase mb-4 font-bold">Sign up for updates!</h3>
       <netlify-form class="lg:w-2/3" submit-label="Sign up" form-name="sign-up" success-message="Thanks for signing up! We will update you as soon as we have any news about Validate My Idea.">
