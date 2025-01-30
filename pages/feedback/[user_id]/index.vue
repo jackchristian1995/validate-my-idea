@@ -1,43 +1,45 @@
 <template>
   <div class="w-full">
-    <div class="sidebar w-1/4 pr-4 border-r-2 border-yellow-400">
-      <section>
-        <h1 :class="['text-2xl lg:text-3xl font-bold uppercase mb-4 w-full', { 'bg-gray-50': !user }]">
-          <span v-if="user">{{ userMeta.full_name }}</span>
-          <span class="opacity-0" v-else>&nbsp;</span>
-        </h1>
-        <p :class="['mb-0 w-full', { 'bg-gray-50': !user }]">
-          <span v-if="user">{{ userMeta.email }}</span>
-          <span class="opacity-0" v-else>&nbsp;</span>
-        </p>
-      </section>
-      <section>
-        <h2>
+    <header class="py-8 lg:py-16">
+      <h1>Feedback</h1>
+      <p class="font-bold">
+        We've listed our feedback for your proposal below. Don't take things personally, we all want the same thing... to get the best out of your idea.
+      </p>
+      <p>
+        Read through our comments and suggested improvements. Think about what we have said and then update your proposal in the textbox.
+      </p>
+      <p class="mb-0">
+        When you are ready, send it off for another round of feedback. 🚀🚀🚀
+      </p>
+    </header>
+    <main class="lg:hidden pb-8">
+      <h2>
           Your concepts
         </h2>
-        <ul class="list-none">
-          <li v-for="concept of concepts" :key="concept.id" class="list-none">
-            {{ concept.name }}
+        <ul v-if="concepts" class="list-none">
+          <li v-for="concept of concepts" :key="concept.id" class="list-none mb-8">
+            <nuxt-link :to="`/feedback/${user?.id}/${concept?.id}`">{{ concept?.name }}</nuxt-link>
+          </li>
+          <li class="list-none mb-0">
+            <nuxt-link class="cta bg-yellow-300" to="/validator">Propose a new concept</nuxt-link>
           </li>
         </ul>
-      </section>
-    </div>
+    </main>
   </div>
 </template>
 
 <script setup>
-// Module Imports
-import { onMounted, ref, computed } from 'vue';
-
-// Component Imports
-
 // Error Handling
 const error = ref(null);
 
+// Page Meta
+definePageMeta({
+  layout: 'feedback'
+});
+
 // Get user info
 const user = ref(null);
-const userMeta = computed(() => user.value?.user_metadata);
-const concepts = ref(undefined);
+const concepts = ref([]);
 onMounted(async () => {
   try {
     user.value = await $fetch('/api/auth/getUser');
@@ -48,14 +50,3 @@ onMounted(async () => {
   }
 });
 </script>
-
-<style scoped>
-.sidebar {
-  height: calc(100vh - 70px - 60px); /* screen height - nav height - footer height */
-}
-
-
-.sidebar > section {
-  @apply border-b-2 border-yellow-400 py-8;
-}
-</style>

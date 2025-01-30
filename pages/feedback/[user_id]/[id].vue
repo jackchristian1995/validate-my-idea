@@ -3,7 +3,7 @@
     <header class="pb-8 mb-8 border-b-2 border-yellow-400">
       <h1>
         <strong v-if="concept">{{ concept.name }}</strong>
-        <span v-else>Feedback</span>
+        <span v-else>&nbsp;</span>
       </h1>
       <p class="font-bold">
         We've listed our feedback for your proposal below. Don't take things personally, we all want the same thing... to get the best out of your idea.

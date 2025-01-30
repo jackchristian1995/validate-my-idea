@@ -93,19 +93,19 @@
 
   /* Element Styles */
   h1 {
-    @apply text-4xl lg:text-8xl font-bold mb-8;
+    @apply text-4xl lg:text-8xl font-bold mb-4 lg:mb-8;
   }
 
   h2 {
-    @apply text-2xl lg:text-3xl font-bold uppercase mb-8;
+    @apply text-2xl lg:text-3xl font-bold uppercase mb-4 lg:mb-8;
   }
 
   h3 {
-    @apply text-lg lg:text-2xl font-bold mb-8;
+    @apply text-lg lg:text-2xl font-bold mb-4 lg:mb-8;
   }
 
   p {
-    @apply text-base lg:text-lg mb-8;
+    @apply text-base lg:text-lg mb-4 lg:mb-8;
   }
 
   ol,
@@ -141,7 +141,7 @@
   }
 
   textarea {
-    @apply block border-2 border-foreground resize-none rounded-none text-base lg:text-lg px-2 pt-1 pb-3 w-full h-44 relative;
+    @apply block border-2 border-foreground resize-none rounded-none text-base lg:text-lg px-2 pt-1 pb-3 w-full h-96 lg:h-44 relative;
     @apply disabled:border-green-500 disabled:text-foreground/50
   }
   

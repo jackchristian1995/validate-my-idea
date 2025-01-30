@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full relative wrapper">
+  <div class="w-full relative py-8 lg:py-0 sidebar-container">
     <div class="hidden lg:block sidebar relative lg:absolute lg:top-0 lg:left-0 w-full lg:w-1/4 lg:h-full lg:pr-4 lg:border-r-2 border-yellow-400 lg:overflow-auto">
       <section>
         <h1 :class="['text-2xl lg:text-3xl font-bold uppercase mb-4 w-full', { 'bg-gray-50': !user }]">
@@ -25,7 +25,7 @@
         </ul>
       </section>
     </div>
-    <div class="w-full lg:w-3/4 lg:py-8 lg:pl-8 lg:pr-4 relative lg:absolute lg:left-1/4 lg:top-0 lg:h-full lg:overflow-auto">
+    <div class="w-full lg:w-3/4 py-0 lg:py-16 lg:pl-8 lg:pr-4 relative lg:absolute lg:left-1/4 lg:top-0 lg:h-full lg:overflow-auto">
       <slot />
     </div>
   </div>
@@ -62,7 +62,7 @@ onMounted(async () => {
 
 <style scoped>
 @media screen and (min-width: 1024px) {
-  .wrapper {
+  .sidebar-container {
     height: calc(100vh - 70px - 60px); /* screen height - nav height - footer height */
   }
 }
