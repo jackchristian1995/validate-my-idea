@@ -4,7 +4,7 @@
       <h1 class="md:w-3/4 xl:w-2/3">
         <strong>Validate Your Startup&nbsp;Idea with Actionable Feedback</strong>
       </h1>
-      <p class="text-xl lg:text-2xl">
+      <p class="text-lg lg:text-2xl">
         The fastest way to refine your idea and take it from concept to reality. No fluff. No wasted time.
       </p>
       <div class="flex flex-col lg:flex-row lg:space-x-8 space-y-8 lg:space-y-0 justify-start items-start">

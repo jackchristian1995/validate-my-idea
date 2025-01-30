@@ -1,7 +1,7 @@
 import supabase from '~/server/utils/supabase';
 
 export default defineEventHandler(async (event) => {
-  const { concept: { product, problem, market } } = await readBody(event);
+  const { concept: { product, problem, market, name } } = await readBody(event);
   const authToken = getCookie(event, 'auth_token');
   
   const { data: { user }, error: authError } = await supabase.auth.getUser(authToken);
@@ -9,6 +9,7 @@ export default defineEventHandler(async (event) => {
 
   const { data, error: dbError } = await supabase.from('concepts').upsert({
     user_id: user.id,
+    name,
     product,
     problem,
     market

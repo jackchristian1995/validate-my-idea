@@ -11,6 +11,7 @@
       <h2>Concepts</h2>
       <ul v-if="concepts.length">
         <li v-for="concept of concepts" :key="concept.id">
+          <nuxt-link :to="`/feedback/${user.id}/${concept.id}`">{{ concept.name }}</nuxt-link>
         </li>
       </ul>
       <div v-else>

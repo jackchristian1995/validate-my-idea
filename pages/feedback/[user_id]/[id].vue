@@ -1,7 +1,10 @@
 <template>
   <div class="w-full">
     <page-section>
-      <h1>Feedback page</h1>
+      <h1 class="md:w-3/4 xl:w-2/3">
+        <strong v-if="concept">{{ concept.name }}</strong>
+        <span v-else>Feedback</span>
+      </h1>
       <p class="font-bold">
         We've listed our feedback for your proposal below. Don't take things personally, we all want the same thing... to get the best out of your idea.
       </p>
@@ -14,7 +17,7 @@
     </page-section>
     <page-section>
       <form v-if="concept" class="w-full xl:w-3/4 2xl:w-2/3 mx-auto border-4 border-yellow-400 shadow-block-lg px-8 py-16" @submit.prevent="getFeedback">
-        <fieldset v-for="section of Object.keys(concept)" :key="section" class="border-b-2 border-yellow-400 pb-16 mb-16 mt-0">
+        <fieldset v-for="section of Object.keys(feedback)" :key="section" class="border-b-2 border-yellow-400 pb-16 mb-16 mt-0">
           <label :for="section">
             <h2 class="mb-0">
               {{ section }} - <span v-if="feedback[section]" :class="{ 'text-green-500': feedback[section]?.score === 5 }">{{ feedback[section]?.score }}&nbsp;/&nbsp;5</span>
@@ -41,7 +44,7 @@
         </fieldset>
         <div class="block lg:flex lg:flex-row lg:space-x-8 lg:justify-start lg:items-center">
           <button v-if="!ideaPerfected && feedback" class="cta">Get feedback</button>
-          <button clas="cta bg-yellow-300">Save feedback for later</button>
+          <button v-if="!user" clas="cta bg-yellow-300">Save feedback for later</button>
         </div>
       </form>
     </page-section>
@@ -66,10 +69,12 @@ useHead({
 
 // User Date
 const { getUser, setUser } = useAuthStore();
+const user = computed(() => getUser());
 const userMeta = computed(() => getUser().user_metadata);
 
 // Concept Data
 const concept = reactive({
+  name: null,
   product: null,
   problem: null,
   market: null
@@ -96,6 +101,7 @@ onMounted(async () => {
     concept.product = conceptRes.product;
     concept.problem = conceptRes.problem;
     concept.market = conceptRes.market;
+    concept.name = conceptRes.name;
     // Check if feedback exists
     let feedbackRes = await $fetch('/api/user/getFeedback', { method: 'POST', body: { id } });
     if (!feedbackRes) {

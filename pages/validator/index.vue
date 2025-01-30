@@ -7,36 +7,48 @@
     <page-section>
       <form ref="formRef" class="w-full xl:w-3/4 2xl:w-2/3 mx-auto border-4 border-yellow-400 shadow-block-lg px-4 py-4 relative" @submit.prevent="saveIdea">
         <fieldset>
-          <label for="description">
-            <h2 class="mb-4">Describe your idea</h2>
+          <label class="mb-2 block" for="business_name">
+            <h2 class="mb-4">Give your concept a name</h2>
           </label>
-          <p class="mb-4">In less than 500 characters, describe your idea. This is your elevator pitch.</p>
+          <p class="mb-4">If you've already named your business, great! If not, give a brief summary of what it does, e.g. AI-powered startup feedback tool. You can always change this later.</p>
           <div class="relative">
-            <textarea name="description" id="description" v-model="formValues.product" maxlength="500" placeholder="I want to build a..."></textarea>
+            <input name="business_name" id="business_name" v-model="formValues.name" maxlength="200" required />
+            <span class="absolute bottom-0 right-0 px-2 py-1 opacity-50">
+              {{ formValues.name?.length }} / 200
+            </span>
+          </div>
+        </fieldset>
+        <fieldset>
+          <label class="mb-2 block" for="description">
+            <h2 class="mb-4">Describe your product</h2>
+          </label>
+          <p class="mb-4">In less than 500 characters, describe your startup concept. What does your startup do? What are you going to sell?</p>
+          <div class="relative">
+            <textarea name="description" id="description" v-model="formValues.product" maxlength="500" required></textarea>
             <span class="absolute bottom-0 right-0 px-2 py-1 opacity-50">
               {{ formValues.product?.length }} / 500
             </span>
           </div>
         </fieldset>
         <fieldset>
-          <label for="problem">
-            <h2 class="mb-4">What problem does your idea solve?</h2>
+          <label class="mb-2 block" for="problem">
+            <h2 class="mb-4">What problem will your startup solve?</h2>
           </label>
-          <p class="mb-4">In less than 500 characters, describe the problem your idea solves.</p>
+          <p class="mb-4">In less than 500 characters, describe the problem your startup concept solves. How does your startup improve people's lives?</p>
           <div class="relative">
-            <textarea name="problem" id="problem" v-model="formValues.problem" placeholder="This will solve..."></textarea>
+            <textarea name="problem" id="problem" v-model="formValues.problem" required></textarea>
             <span class="absolute bottom-0 right-0 px-2 py-1 opacity-50">
               {{ formValues.problem?.length }} / 500
             </span>
           </div>
         </fieldset>
         <fieldset>
-          <label for="market">
-            <h2>Who does your idea serve?</h2>
+          <label class="mb-2 block" for="market">
+            <h2>Who does your startup serve?</h2>
           </label>
-          <p class="mb-4">In less than 500 characters, describe who you are solving the problem for.</p>
+          <p class="mb-4">In less than 500 characters, describe who you are solving the problem for. Who will use your product? Why should they use you over your competitors?</p>
           <div class="relative">
-            <textarea name="market" id="market" v-model="formValues.market" placeholder="My target market is..."></textarea>
+            <textarea name="market" id="market" v-model="formValues.market" placeholder="My target market is..." required></textarea>
             <span class="absolute bottom-0 right-0 px-2 py-1 opacity-50">
               {{ formValues.market?.length }} / 500
             </span>
@@ -90,6 +102,7 @@ const captchaToken = ref(undefined);
 const getToken = (token, ekey) => captchaToken.value = token;
 
 const formValues = reactive({
+  name: "AI-powered startup feedback tool",
   product: "I want to create an AI-powered startup concept validation platform. A place for new entrepreneurs to validate their ideas and evolve them into a strong business plan. The AI bases its feedback on the clarity, feasibility, and market differentiation of the user's concept. It provides constructive feedback to gradually guide the user to a much stronger plan for their startup to give them the confidence and momentum to start it.",
   problem: "Many people have business ideas but don't know how to test them or validate them. Without proper idea validation, people risk investing their time and money into a venture doomed to fail. I want to provide a place for people to test and evolve their ideas so that they can feel more confident that they have a strong plan for success and have thought through their idea to the point where it can't get any better.",
   market: "My target market is people like me. Aspiring entrepreneurs who lack the experience and community required to get feedback on their ideas. My platform aims to provide a sounding board where they propose their ideas and get valuable, constructive feedback to help them build a well-thought-out plan for success."
