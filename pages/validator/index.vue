@@ -117,6 +117,8 @@ const saveIdea = async () => {
     // Validate the form concept
     const valid = await $fetch('/api/form/validateIdea', { method: 'POST', body: { ...formValues } });
     if (valid) {
+      // Refresh session before going ahead
+      await $fetch('/api/auth/verify');
       if (!user.value) {
         // Create anonymous user
         const newUser = await $fetch('/api/auth/signInAsGuest', { method: 'POST', body: { token: captchaToken.value } });

@@ -19,11 +19,12 @@
       <form v-if="concept" class="w-full xl:w-3/4 2xl:w-2/3 mx-auto border-4 border-yellow-400 shadow-block-lg px-8 py-16" @submit.prevent="getFeedback">
         <fieldset v-for="section of Object.keys(feedback)" :key="section" class="border-b-2 border-yellow-400 pb-16 mb-16 mt-0">
           <label :for="section">
-            <h2 class="mb-0">
-              {{ section }} - <span v-if="feedback[section]" :class="{ 'text-green-500': feedback[section]?.score === 5 }">{{ feedback[section]?.score }}&nbsp;/&nbsp;5</span>
+            <h2 class="mb-8">
+              {{ getHeading(section) }}
             </h2>
           </label>
           <div v-if="feedback[section]" class="py-4">
+            <h3>Feedback score: <span v-if="feedback[section]" :class="{ 'text-green-500': feedback[section]?.score === 5 }">{{ feedback[section]?.score }}&nbsp;/&nbsp;5</span></h3>
             <div class="my-4">
               <h3 class="mb-2">What works well in your concept</h3>
               <p>{{ feedback[section].strengths }}</p>
@@ -71,6 +72,13 @@ useHead({
 const { getUser, setUser } = useAuthStore();
 const user = computed(() => getUser());
 const userMeta = computed(() => getUser().user_metadata);
+
+// Page Headings
+const getHeading = (section) => {
+  if (section === 'product') return 'Your product concept';
+  if (section === 'problem') return 'The problem you aim to solve';
+  if (section === 'market') return 'Your target market';
+}
 
 // Concept Data
 const concept = reactive({
@@ -121,20 +129,26 @@ onMounted(async () => {
 
 // Get Additional Feedback
 const getFeedback = async () => {
-  const id = useRoute().path.split('/')[2];
-  // Store new concept in DB
-  await $fetch('/api/user/updateConcept', { method: 'POST', body: { id, concept: { ...concept } } });
-  // Send concept for feedback
-  const aiFeedback = await $fetch('/api/ideate/getAdditionalFeedback', { method: 'POST', body: { feedback, concept } });
-  // Store feedback in DB
-  await $fetch('/api/user/updateFeedback', { method: 'POST', body: { id, feedback: aiFeedback[0] } });
-  // Update credit balance
-  const credits = await $fetch('/api/user/useCredit');
-  setUser(credits);
-  // Add feedback to view
-  feedback.product = aiFeedback[0].product;
-  feedback.problem = aiFeedback[0].problem;
-  feedback.market = aiFeedback[0].market;
+  try {
+    // Refresh session before going ahead
+    await $fetch('/api/auth/verify');
+    const id = useRoute().path.split('/')[3];
+    // Store new concept in DB
+    await $fetch('/api/user/updateConcept', { method: 'POST', body: { id, concept: { ...concept } } });
+    // Send concept for feedback
+    const aiFeedback = await $fetch('/api/ideate/getAdditionalFeedback', { method: 'POST', body: { feedback, concept } });
+    // Store feedback in DB
+    await $fetch('/api/user/updateFeedback', { method: 'POST', body: { id, feedback: aiFeedback[0] } });
+    // Update credit balance
+    const credits = await $fetch('/api/user/useCredit');
+    setUser(credits);
+    // Add feedback to view
+    feedback.product = aiFeedback[0].product;
+    feedback.problem = aiFeedback[0].problem;
+    feedback.market = aiFeedback[0].market;
+  } catch (err) {
+    console.error(err.message)
+  }
 }
 
 // Perfected the idea
