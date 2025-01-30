@@ -1,7 +1,7 @@
 <template>
   <div class="w-full">
-    <page-section>
-      <h1 class="md:w-3/4 xl:w-2/3">
+    <header class="pb-8 mb-8 border-b-2 border-yellow-400">
+      <h1>
         <strong v-if="concept">{{ concept.name }}</strong>
         <span v-else>Feedback</span>
       </h1>
@@ -11,12 +11,12 @@
       <p>
         Read through our comments and suggested improvements. Think about what we have said and then update your proposal in the textbox.
       </p>
-      <p>
+      <p class="mb-0">
         When you are ready, send it off for another round of feedback. 🚀🚀🚀
       </p>
-    </page-section>
-    <page-section>
-      <form v-if="concept" class="w-full xl:w-3/4 2xl:w-2/3 mx-auto border-4 border-yellow-400 shadow-block-lg px-8 py-16" @submit.prevent="getFeedback">
+    </header>
+    <main>
+      <form v-if="concept" class="w-full" @submit.prevent="getFeedback">
         <fieldset v-for="section of Object.keys(feedback)" :key="section" class="border-b-2 border-yellow-400 pb-16 mb-16 mt-0">
           <label :for="section">
             <h2 class="mb-8">
@@ -27,16 +27,16 @@
             <h3>Feedback score: <span v-if="feedback[section]" :class="{ 'text-green-500': feedback[section]?.score === 5 }">{{ feedback[section]?.score }}&nbsp;/&nbsp;5</span></h3>
             <div class="my-4">
               <h3 class="mb-2">What works well in your concept</h3>
-              <p>{{ feedback[section].strengths }}</p>
+              <p class="mb-0">{{ feedback[section].strengths }}</p>
             </div>
             <div v-if="feedback[section].weaknesses" class="my-4">
               <h3 class="mb-2">How we could strengthen your concept</h3>
-              <p>
+              <p class="mb-0">
                 {{ feedback[section].weaknesses }}
               </p>
             </div>
           </div>
-          <div class="relative mt-8">
+          <div class="relative mt-4">
             <textarea v-model="concept[section]" :id="section" :name="section" maxlength="500" :disabled="feedback[section]?.score === 5" placeholder="I want to build a..."></textarea>
             <span class="absolute bottom-0 right-0 px-2 py-1 opacity-50">
               {{ concept[section]?.length }} / 500
@@ -48,16 +48,13 @@
           <button v-if="!user" clas="cta bg-yellow-300">Save feedback for later</button>
         </div>
       </form>
-    </page-section>
+    </main>
   </div>
 </template>
 
 <script setup>
 // Module Imports
 import { onMounted, reactive, computed } from 'vue';
-
-// Component Imports
-import PageSection from '~/components/ui/PageSection.vue';
 
 // Store Imports
 import { useConceptStore } from '~/stores/conceptStore';
@@ -68,6 +65,11 @@ useHead({
   title: 'Feedback'
 });
 
+// Page Meta
+definePageMeta({
+  layout: 'feedback'
+});
+
 // User Date
 const { getUser, setUser } = useAuthStore();
 const user = computed(() => getUser());
@@ -75,8 +77,8 @@ const userMeta = computed(() => getUser().user_metadata);
 
 // Page Headings
 const getHeading = (section) => {
-  if (section === 'product') return 'Your product concept';
-  if (section === 'problem') return 'The problem you aim to solve';
+  if (section === 'product') return 'Your product';
+  if (section === 'problem') return 'The problem you solve';
   if (section === 'market') return 'Your target market';
 }
 

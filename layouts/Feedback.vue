@@ -1,6 +1,6 @@
 <template>
-  <div class="w-full">
-    <div class="sidebar w-1/4 pr-4 border-r-2 border-yellow-400">
+  <div class="w-full relative wrapper">
+    <div class="hidden lg:block sidebar relative lg:absolute lg:top-0 lg:left-0 w-full lg:w-1/4 lg:h-full lg:pr-4 lg:border-r-2 border-yellow-400 lg:overflow-auto">
       <section>
         <h1 :class="['text-2xl lg:text-3xl font-bold uppercase mb-4 w-full', { 'bg-gray-50': !user }]">
           <span v-if="user">{{ userMeta.full_name }}</span>
@@ -16,11 +16,17 @@
           Your concepts
         </h2>
         <ul class="list-none">
-          <li v-for="concept of concepts" :key="concept.id" class="list-none">
-            {{ concept.name }}
+          <li v-for="concept of concepts" :key="concept.id" class="list-none mb-8">
+            <nuxt-link :class="['cta text-left', { 'hollow': !useRoute().path.includes(concept.id)}]" :to="`/feedback/${user?.id}/${concept.id}`">{{ concept.name }}</nuxt-link>
+          </li>
+          <li class="list-none mb-0">
+            <nuxt-link class="cta bg-yellow-300" to="/validator">Propose a new concept</nuxt-link>
           </li>
         </ul>
       </section>
+    </div>
+    <div class="w-full lg:w-3/4 lg:py-8 lg:pl-8 lg:pr-4 relative lg:absolute lg:left-1/4 lg:top-0 lg:h-full lg:overflow-auto">
+      <slot />
     </div>
   </div>
 </template>
@@ -29,7 +35,12 @@
 // Module Imports
 import { onMounted, ref, computed } from 'vue';
 
-// Component Imports
+// 
+useHead({
+  bodyAttrs: {
+    class: 'lg:h-full lg:overflow-hidden'
+  }
+});
 
 // Error Handling
 const error = ref(null);
@@ -50,8 +61,10 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.sidebar {
-  height: calc(100vh - 70px - 60px); /* screen height - nav height - footer height */
+@media screen and (min-width: 1024px) {
+  .wrapper {
+    height: calc(100vh - 70px - 60px); /* screen height - nav height - footer height */
+  }
 }
 
 

@@ -13,10 +13,14 @@
       </nav>
     </header>
     <main class="max-w-screen-2xl px-4 w-full mx-auto">
-      <nuxt-page />
+      <nuxt-layout>
+        <nuxt-page />
+      </nuxt-layout>
     </main>
-    <footer class="py-4 max-w-screen-2xl px-4 w-full mx-auto flex flex-row justify-between items-center">
-      <p class="mb-0">&copy; Validate My Idea 2025</p>
+    <footer class="max-w-screen-2xl px-4 w-full mx-auto">
+      <div class="w-full py-4 flex flex-row justify-between items-center border-t-2 border-yellow-400">
+        <p class="mb-0">&copy; Validate My Idea 2025</p>
+      </div>
     </footer>
   </div>
 </template>
