@@ -34,6 +34,16 @@ export default defineNuxtConfig({
           src: 'https://accounts.google.com/gsi/client'
         }
       ]
+    },
+    layoutTransition: {
+      appear: true,
+      mode: 'out-in',
+      name: 'fade'
+    },
+    pageTransition: {
+      appear: true,
+      mode: 'out-in',
+      name: 'fade'
     }
   },
 

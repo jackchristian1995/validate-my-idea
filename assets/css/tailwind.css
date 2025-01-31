@@ -161,3 +161,21 @@
     @apply hover:bg-yellow-400;
   }
 }
+
+/* 
+**  Vue Transitions
+*/
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-leave-from,
+.fade-enter-to {
+  opacity: 1;
+}
+
+.fade-leave-active,
+.fade-enter-active {
+  transition: opacity 0.25s ease-in-out;
+}
