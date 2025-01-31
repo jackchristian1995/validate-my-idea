@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full">
+  <div v-if="concept" class="w-full">
     <header class="pb-8 mb-8 border-b-2 border-yellow-400">
       <h1 :class="['w-full', { 'bg-gray-50': !concept.name }]">
         <transition name="fade" mode="out-in">

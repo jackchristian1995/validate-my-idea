@@ -49,7 +49,7 @@
           </label>
           <p class="mb-4">In less than 500 characters, describe who you are solving the problem for. Who will use your product? Why should they use you over your competitors?</p>
           <div class="relative">
-            <textarea name="market" id="market" v-model="formValues.market" placeholder="My target market is..." required></textarea>
+            <textarea name="market" id="market" v-model="formValues.market" required></textarea>
             <span class="absolute bottom-0 right-0 px-2 py-1 opacity-50">
               {{ formValues.market?.length }} / 500
             </span>
@@ -87,6 +87,7 @@ import { Loader2 } from 'lucide-vue-next';
 
 // Store Imports
 import { useAuthStore } from '~/stores/authStore';
+import { useConceptStore } from '~/stores/conceptStore';
 
 // Use Head
 useHead({
@@ -104,6 +105,7 @@ const userMessage = ref(undefined);
 const error = ref(undefined);
 
 // Idea concept
+const { pushConcept, getConcepts } = useConceptStore();
 const saved = ref(false);
 const captchaToken = ref(undefined);
 const getToken = (token, ekey) => captchaToken.value = token;
@@ -124,8 +126,6 @@ const saveIdea = async () => {
     // Validate the form concept
     const valid = await $fetch('/api/form/validateIdea', { method: 'POST', body: { ...formValues } });
     if (valid) {
-      // Refresh session before going ahead
-      await $fetch('/api/auth/verify');
       if (!user.value) {
         // Create anonymous user
         const newUser = await $fetch('/api/auth/signInAsGuest', { method: 'POST', body: { token: captchaToken.value } });
@@ -134,6 +134,8 @@ const saveIdea = async () => {
       if (user.value.user_metadata.credits < 1) throw new Error('You do not have enough feedback credits to submit this proposal.');
       // Store Concept in DB
       const storedConcept = await $fetch('/api/user/postConcept', { method: 'POST', body: { concept: formValues } });
+      pushConcept({ ...formValues });
+      console.log(getConcepts());
       
       useRouter().push(`/feedback/${user.value.id}/${storedConcept[0].id}`);
     }

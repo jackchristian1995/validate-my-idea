@@ -11,8 +11,9 @@ export const useConceptStore = defineStore('concepts', () => {
 
   // Setters
   const setConcepts = (payload) => concepts.value = payload;
+  const pushConcept = (payload) => concepts.value.push(payload);
 
-  return { concepts, getConcepts, getMostRecentConcept, getConceptById, setConcepts };
+  return { concepts, getConcepts, getMostRecentConcept, getConceptById, setConcepts, pushConcept };
 }, {
   persist: true
 });

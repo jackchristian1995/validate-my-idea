@@ -1,6 +1,6 @@
 <template>
-  <div class="w-full h-full">
-
+  <div class="w-full h-screen flex flex-row items-center justify-center">
+    <h1>Logging you in...</h1>
   </div>
 </template>
 
