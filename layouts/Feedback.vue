@@ -3,12 +3,16 @@
     <div class="hidden lg:block sidebar relative lg:absolute lg:top-0 lg:left-0 w-full lg:w-1/4 lg:h-full lg:pr-4 lg:border-r-2 border-yellow-400 lg:overflow-auto">
       <section>
         <h1 :class="['text-2xl lg:text-3xl font-bold uppercase mb-4 w-full', { 'bg-gray-50': !user }]">
-          <span v-if="user">{{ userMeta.full_name }}</span>
-          <span class="opacity-0" v-else>&nbsp;</span>
+          <transition name="fade" mode="out-in">
+            <span v-if="user">{{ userMeta.full_name }}</span>
+            <span class="opacity-0" v-else>&nbsp;</span>
+          </transition>
         </h1>
         <p :class="['mb-0 w-full', { 'bg-gray-50': !user }]">
-          <span v-if="user">{{ userMeta.email }}</span>
-          <span class="opacity-0" v-else>&nbsp;</span>
+          <transition name="fade" mode="out-in">
+            <span v-if="user">{{ userMeta.email }}</span>
+            <span class="opacity-0" v-else>&nbsp;</span>
+          </transition>
         </p>
       </section>
       <section>

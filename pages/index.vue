@@ -34,24 +34,36 @@
       </ol>
     </page-section>
     <page-section>
-      <h2>Why choose us?</h2>
+      <h2>Why use Validate My Idea?</h2>
       <p>
-        If you have a million dollar idea but don’t know where to start, this is the place. We are a community of people with brilliant ideas and experience in bringing them to life. Become part of the community to help grow your ideas and help others grow theirs.
+        There are plenty of online forums and communities for you to validate and grow your ideas. That raises the question, what use is AI startup idea validation and feedback? Let's compare and see.
       </p>
-      <ol>
-        <li>
-          <strong>No more guesswork.</strong> Gain clarity and confidence about your idea.
-        </li>
-        <li>
-          <strong>Focus on what matters.</strong> Our AI provides concise, actionable steps so you can make big improvements without feeling overwhelmed.
-        </li>
-        <li>
-          <strong>Tailored to you.</strong> Feedback is customized to your idea, guiding you toward the next big win.
-        </li>
-        <li>
-          <strong>Iterative process.</strong> Refine your idea as many times as you need, at your own pace.
-        </li>
-      </ol>
+      <table class="w-full lg:w-3/4 mx-auto">
+        <thead>
+          <tr>
+            <th>Validate My Idea</th>
+            <th>Human forums</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>✅ Guaranteed response</td>
+            <td>❌ Response only if someone feels like it</td>
+          </tr>
+          <tr>
+            <td>✅ Instant feedback</td>
+            <td>❌ Waiting and hoping for someone to feedback</td>
+          </tr>
+          <tr>
+            <td>✅ Focused on making your idea work</td>
+            <td>❌ May tell you to give up instead of finding a solution</td>
+          </tr>
+          <tr>
+            <td>✅ Wants to see you become successful</td>
+            <td>❌ May steal your idea</td>
+          </tr>
+        </tbody>
+      </table>
     </page-section>
     <page-section>
       <h2>Who is this for?</h2>
@@ -68,6 +80,47 @@
       </ol>
     </page-section>
     <page-section>
+      <h2>Frequently Asked Questions</h2>
+      <Accordion default-value="is-good" type="single">
+        <AccordionItem value="is-good">
+          <AccordionTrigger class="hover:no-underline">
+            <span>
+              Is the <strong>AI feedback</strong> any good?
+            </span>
+          </AccordionTrigger>
+          <AccordionContent>
+            <p>
+              We work hard to ensure that our AI does not just give generic advice back to you. We understand that <strong>you are the driving force behind your idea</strong>. With that in mind, our AI only asks you questions to prompt you to think about things from a new perspective to help you grow your vision your way.
+            </p>
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="why-ai">
+          <AccordionTrigger class="hover:no-underline">
+            <span>
+              When will I know the idea is ready?
+            </span>
+          </AccordionTrigger>
+          <AccordionContent>
+            <p>
+              Once the AI can no longer find ways to improve your idea, we consider your idea ready. At that point, you can feel confident that you are ready to move into the next stage of your startup journey with a strong concept.
+            </p>
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="how-works">
+          <AccordionTrigger class="hover:no-underline">
+            <span>
+              How do <strong>feedback credits</strong> work?
+            </span>
+          </AccordionTrigger>
+          <AccordionContent>
+            <p>
+              Each new concept proposal comes with 1 free feedback credit. This credit pays for one interaction with our feedback AI. If you feel the feedback is worth it and you can see the potential of your idea starting to expand, you can purchase more credits with a full user account. 
+            </p>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+    </page-section>
+    <page-section>
       <h2>Founder's Note</h2>
       <p>
         I love building things but often dive straight into building without considering how to turn that product into a business. I built <nuxt-link to="/">Validate My Idea</nuxt-link> as a way for me and other Indie Hackers to sense check our ideas, validate and evolve them into more well-rounded business concepts.
@@ -82,57 +135,6 @@
         <strong class="inline-block px-2">Keep on building!</strong>
       </p>
       <p class="italic text-xl"><a href="https://jackchristian.com.au" target="_blank">Jack Christian</a></p>
-    </page-section>
-    <page-section>
-      <h2>Frequently Asked Questions</h2>
-      <Accordion default-value="is-good" type="single">
-        <AccordionItem value="is-good">
-          <AccordionTrigger class="">
-            <span>
-              Is the <strong>AI feedback</strong> any good?
-            </span>
-          </AccordionTrigger>
-          <AccordionContent>
-            <p>
-              We work hard to ensure that our AI does not just give generic advice back to you. We understand that <strong>you are the driving force behind your idea</strong>. With that in mind, our AI only asks you questions to prompt you to think about things from a new perspective to help you grow your vision your way.
-            </p>
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="why-ai">
-          <AccordionTrigger>
-            <span>
-              Why use <strong>AI-validation instead of human forums</strong> and online communities?
-            </span>
-          </AccordionTrigger>
-          <AccordionContent>
-            <p>
-              Human forums and online communities offer great feedback from real people. There is no denying that. What they lack is immediacy. Often posts to communities go ignored or the feedback is just too slow. AI platforms like Validate My Idea offer immediate and reliable feedback to help evolve your idea straightaway.
-            </p>
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="how-works">
-          <AccordionTrigger>
-            <span>
-              How do <strong>feedback credits</strong> work?
-            </span>
-          </AccordionTrigger>
-          <AccordionContent>
-            <p>
-              Each new concept proposal comes with 1 free feedback credit. This credit pays for one interaction with our feedback AI. If you feel the feedback is worth it and you can see the potential of your idea starting to expand, you can purchase more credits with a full user account. 
-            </p>
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
-    </page-section>
-    <page-section class="border-b-0">
-      <h2 class="text-4xl lg:text-8xl normal-case font-bold mb-8">Launching soon!</h2>
-      <h3 class="text-xl lg:text-3xl uppercase mb-4 font-bold">Sign up for updates!</h3>
-      <netlify-form class="lg:w-2/3" submit-label="Sign up" form-name="sign-up" success-message="Thanks for signing up! We will update you as soon as we have any news about Validate My Idea.">
-        <label for="email" class="block mb-8">
-          <p class="sr-only">Enter your email address...</p>
-          <input type="email" name="email" id="email" placeholder="Enter your email address..." required />
-        </label>
-      </netlify-form>
     </page-section>
   </div>
 </template>

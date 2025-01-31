@@ -1,6 +1,6 @@
 <template>
   <div class="w-full">
-    <header class="py-8 lg:py-16">
+    <header class="pb-8">
       <h1>Feedback</h1>
       <p class="font-bold">
         We've listed our feedback for your proposal below. Don't take things personally, we all want the same thing... to get the best out of your idea.

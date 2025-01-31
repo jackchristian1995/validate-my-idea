@@ -133,7 +133,7 @@
   }
 
   fieldset {
-    @apply my-16;
+    @apply my-8 lg:my-16;
   }
 
   input {
@@ -143,6 +143,18 @@
   textarea {
     @apply block border-2 border-foreground resize-none rounded-none text-base lg:text-lg px-2 pt-1 pb-3 w-full h-96 lg:h-44 relative;
     @apply disabled:border-green-500 disabled:text-foreground/50
+  }
+
+  table {
+    @apply border-collapse;
+  }
+
+  th {
+    @apply bg-yellow-400;
+  }
+
+  th, td {
+    @apply text-center py-2 px-4 border-b-2 border-yellow-300;
   }
   
   /* Class Styles */

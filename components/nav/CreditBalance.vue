@@ -1,5 +1,5 @@
 <template>
-  <div class="border-2 border-yellow-400 py-1 px-2 leading-none flex flex-row items-center justify-center space-x-4">
+  <div class="border-2 border-yellow-400 py-1 px-2 leading-none flex flex-row items-center justify-center space-x-4 mr-16">
     <span class="leading-none">{{ creditBalance }}&nbsp;Credits</span>
     <Dialog v-if="isAuthenticated">
       <DialogTrigger class="leading-none bg-yellow-400 h-6 w-6 font-bold hover:text-yellow-400 hover:bg-gray-900 transition-all">+</DialogTrigger>

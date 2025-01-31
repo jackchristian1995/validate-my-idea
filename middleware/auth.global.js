@@ -20,12 +20,13 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     const authStore = useAuthStore(useNuxtApp().$pinia);
     authStore.setUser(verified);
     if (to.path.includes('/feedback/')) {
+      console.log(verified.id);
       if (!to.path.includes(verified.id)) return navigateTo('/login')
     }
 
   } catch (error) {
     // If verification fails, redirect to the login page unless url is whitelisted
     if (allowedUrls.includes(to.path)) return;
-    return navigateTo('/auth/login');
+    return navigateTo('/login');
   }
 });

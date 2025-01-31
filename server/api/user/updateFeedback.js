@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
     product,
     problem,
     market
-  }).eq('id', id);
+  }).eq('id', id).select();
   if (dbError) throw createError({ statusCode: 400, statusMessage: dbError.message });
 
   return data;

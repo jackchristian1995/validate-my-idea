@@ -30,8 +30,8 @@ Weaknesses: ${feedback.problem.weaknesses}
 Score: ${feedback.market.score}
 Strengths: ${feedback.market.strengths}
 Weaknesses: ${feedback.market.weaknesses}
-Each proposal is given to you in three sections: a product description, a description of the problem it solves, a description of the target market. Consider the clarity, feasibility, and market differentiation of each product in your response.
-For each section give a score from 1 to 5 based on the clarity, feasibility and market differentiation of that section. If you give a score of five, that means there are no weaknesses so you should not list any. Describe the strengths of each section and the areas for improvement. Phrase the areas for improvement as a question to prompt the user to think more deeply about their concept. As we are only working on the concept at this point, we do not need to worry about execution problems like whether an AI might hallucinate in an AI product.
+Each proposal is given to you in three sections: a product description, a description of the problem it solves, a description of the target market. Consider the clarity, feasibility, market differentiation and how easy it will be to monetise the product in your response. Market differentiation and monetisation are the most important things to focus on. Ensure the user knows where to improve in those areas. Do not ask questions about implementation at this stage, focus only on ideation and creating a high-quality concept.
+For each section give a score from 1 to 5 based on the clarity, feasibility, market differentiation and how easy it will be to monetise that section. If you give a score of five, that means there are no weaknesses so you should not list any. Describe the strengths of each section and the areas for improvement. Phrase the areas for improvement as a question to prompt the user to think more deeply about their concept. As we are only working on the concept at this point, we do not need to worry about execution problems like whether an AI might hallucinate in an AI product.
 Remember, for each section the user has only 500 characters to use so the descriptions may appear brief. Prompt them to be concise but effective with their description to maximise what they can squeeze out of their idea.
 If you are happy that the idea is complete, leave the weaknesses empty.
 ##  IDEA DESCRIPTION
@@ -71,7 +71,7 @@ Provide your response in the following JSON format:
           },
           {
             type: 'text',
-            text: 'You must respond only using the desired JSON structure.'
+            text: 'Include only JSON in your response. Use the supplied JSON example to structure the data in your response.'
           },
           {
             type: 'text',
@@ -84,5 +84,6 @@ Provide your response in the following JSON format:
 
   const { text } = msg.content[0];
   
+
   return JSON.parse(text);
 });
