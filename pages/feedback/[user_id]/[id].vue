@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full">
+  <div v-if="concept" class="w-full">
     <header class="pb-8 mb-8 border-b-2 border-yellow-400">
       <h1 :class="['w-full', { 'bg-gray-50': !concept.name }]">
         <transition name="fade" mode="out-in">
@@ -8,7 +8,7 @@
         </transition>
       </h1>
       <transition name="fade" mode="out-in" appear>
-        <div v-if="!ideaPerfected && feedback.product && feedback.market && feedback.problem">
+        <div v-if="!ideaPerfected">
           <p class="font-bold">
             We've listed our feedback for your proposal below. Don't take things personally, we all want the same thing... to get the best out of your idea.
           </p>
@@ -21,7 +21,7 @@
         </div>
       </transition>
     </header>
-    <main v-if="feedback.product && feedback.market && feedback.problem">
+    <main v-if="concept.product && concept.market && concept.problem">
       <transition name="fade" mode="out-in" appear>
         <form v-if="concept.name && !ideaPerfected" class="w-full relative" @submit.prevent="getFeedback">
           <fieldset v-for="section of Object.keys(feedback)" :key="section" class="border-b-2 border-yellow-400 pb-16 mb-16 mt-0">
@@ -154,7 +154,7 @@ onMounted(async () => {
     feedback.problem = feedbackRes.problem;
     feedback.market = feedbackRes.market;
   } catch (err) {
-    console.error(err.message);
+    error.value = err.message;
   }
 });
 
