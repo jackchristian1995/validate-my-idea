@@ -50,7 +50,10 @@
             Sorry, it looks like that didn't work. Please try again.
           </p>
           <div class="block lg:flex lg:flex-row lg:space-x-8 lg:justify-start lg:items-center">
-            <button ref="submitBtnRef" type="submit" v-if="!ideaPerfected && feedback" class="cta">Submit for feedback</button>
+            <button ref="submitBtnRef" type="submit" v-if="!ideaPerfected && feedback && creditBalance > 0" class="cta">Submit for feedback</button>
+            <p v-if="creditBalance < 1" class="font-bold text-red-600">
+              Please purchase more credits for more feedback.
+            </p>
           </div>
           <div v-show="userMessage" class="absolute top-0 left-0 px-4 py-8 w-full h-full bg-background/75 z-50 backdrop-blur flex flex-col justify-end font-bold text-center">
             <Loader2 class="animate-spin mx-auto mb-4 h-4" />
@@ -86,7 +89,8 @@ definePageMeta({
 });
 
 // User Data
-const { setUser } = useAuthStore();
+const { setUser, getCreditBalance } = useAuthStore();
+const creditBalance = computed(() => getCreditBalance());
 
 // Error Handling
 const error = ref(undefined);
@@ -140,6 +144,9 @@ onMounted(async () => {
 // Get Additional Feedback
 const userMessage = ref(undefined);
 const getFeedback = async () => {
+  // Check credit balance
+  if (creditBalance.value < 1) throw new Error('You are out of feedback credits. Please purchase more for more feedback.');
+
   userMessage.value = 'Please wait while we analyse your proposal.';
   error.value = undefined;
   try {
