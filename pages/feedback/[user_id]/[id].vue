@@ -1,5 +1,5 @@
 <template>
-  <div v-if="concept" class="w-full">
+  <div class="w-full">
     <header class="pb-8 mb-8 border-b-2 border-yellow-400">
       <h1 :class="['w-full', { 'bg-gray-50': !concept.name }]">
         <transition name="fade" mode="out-in">
@@ -7,19 +7,23 @@
           <span v-else>&nbsp;</span>
         </transition>
       </h1>
-      <p class="font-bold">
-        We've listed our feedback for your proposal below. Don't take things personally, we all want the same thing... to get the best out of your idea.
-      </p>
-      <p>
-        Read through our comments and suggested improvements. Think about what we have said and then update your proposal in the textbox.
-      </p>
-      <p class="mb-0">
-        When you are ready, send it off for another round of feedback. 🚀🚀🚀
-      </p>
-    </header>
-    <main>
       <transition name="fade" mode="out-in" appear>
-        <form v-if="concept.name" class="w-full relative" @submit.prevent="getFeedback">
+        <div v-if="!ideaPerfected && feedback.product && feedback.market && feedback.problem">
+          <p class="font-bold">
+            We've listed our feedback for your proposal below. Don't take things personally, we all want the same thing... to get the best out of your idea.
+          </p>
+          <p>
+            Read through our comments and suggested improvements. Think about what we have said and then update your proposal in the textbox.
+          </p>
+          <p class="mb-0">
+            When you are ready, send it off for another round of feedback. 🚀🚀🚀
+          </p>
+        </div>
+      </transition>
+    </header>
+    <main v-if="feedback.product && feedback.market && feedback.problem">
+      <transition name="fade" mode="out-in" appear>
+        <form v-if="concept.name && !ideaPerfected" class="w-full relative" @submit.prevent="getFeedback">
           <fieldset v-for="section of Object.keys(feedback)" :key="section" class="border-b-2 border-yellow-400 pb-16 mb-16 mt-0">
             <label :for="section">
               <h2 class="mb-8">
@@ -62,6 +66,19 @@
             </span>
           </div>
         </form>
+      </transition>
+      <transition name="fade" mode="out-in" appear>
+        <article v-if="ideaPerfected">
+          <section v-for="section of Object.keys(feedback)" :key="section">
+            <h2>{{ getHeading(section) }}</h2>
+            <p>
+              {{ concept[section] }}
+            </p>
+            <p>
+              {{ feedback[section].strengths }}
+            </p>
+          </section>
+        </article>
       </transition>
     </main>
   </div>
