@@ -56,7 +56,7 @@
           <div class="block lg:flex lg:flex-row lg:space-x-8 lg:justify-start lg:items-center">
             <button ref="submitBtnRef" type="submit" v-if="!ideaPerfected && feedback && creditBalance > 0" class="cta">Submit for feedback</button>
             <p v-if="creditBalance < 1" class="font-bold text-red-600">
-              Please purchase more credits for more feedback.
+              If you have a full user account, you can purchase more credits from the credit balance display for further feedback.
             </p>
           </div>
           <div v-show="userMessage" class="absolute top-0 left-0 px-4 py-8 w-full h-full bg-background/75 z-50 backdrop-blur flex flex-col justify-end font-bold text-center">
